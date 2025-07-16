@@ -1,0 +1,36 @@
+# Essential RAG, crawling, chatbot, and scheduling dependencies:
+
+# For Python Web Scraping & Automation
+requests>=2.25.1
+beautifulsoup4>=4.9.3
+playwright>=1.19.0
+
+# For Task Scheduling
+apscheduler>=3.9.1
+
+# For Environment Variables
+python-dotenv>=1.0.0
+
+# For RAG and Vector DB Interaction
+openai>=1.0.0
+weaviate-client>=4.15.0,<5.0.0
+
+# For Progress Bars / Utilities
+tqdm>=4.66.0
+pydantic>=2.0.0
+lxml>=4.9.0
+
+# For Web App chatbot UI
+streamlit>=1.10.0
+
+# If using Selenium, Scrapy, playwright-selector-finder (uncomment if used)
+# selenium>=4.6.0
+# scrapy>=2.6.0
+# playwright-selector-finder>=0.2.0
+
+
+# pip install schedule
+# pip install openai --upgrade
+
+# BONUS: Upgrade Automatically with Migration Tool---
+# >> openai migrate

@@ -1,0 +1,8 @@
+python -m app.upsert.setup_schema
+python -m app.crawler.crawler_mp
+python -m app.upsert.upsert
+
+
+docker-compose down -v  # Full clean wipe
+docker-compose up -d    # Restart Weaviate
+python -m app.upsert.setup_schema  # Recreate schema cleanly

@@ -1,0 +1,19 @@
+cat <<EOF > POC_periodical_scraping/.gitignore
+# Environment
+venv/
+.env
+__pycache__/
+*.py[cod]
+*.log
+
+# Data
+data/*.json
+weaviate-data/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+*.swp
+EOF
