@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   weaviate:
-    image: semitechnologies/weaviate:1.26.2  # ✅ Upgrade to latest stable
+    image: semitechnologies/weaviate:1.26.2  # ✅ latest stable
     restart: always
     ports:
       - "8080:8080"
@@ -16,3 +16,18 @@ services:
       - OPENAI_APIKEY=${OPENAI_API_KEY}
     volumes:
       - ./weaviate-data:/var/lib/weaviate
+
+  scheduler:
+    build: .
+    depends_on:
+      - weaviate
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "app.scheduler.scheduler"]
+      interval: 1m
+      timeout: 10s
+      retries: 3

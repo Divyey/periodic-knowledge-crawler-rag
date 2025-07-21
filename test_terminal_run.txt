@@ -1,3 +1,20 @@
+# 1. Start Weaviate if not already running
+docker-compose up -d weaviate
+
+# 2. (Optional) Reset schema with OpenAI vectorizer
+python app/upsert/setup_schema.py
+
+# 3. Run full crawl and upsert pipeline
+python -m app.scheduler.scheduler
+
+# 4. (Optional) Run chatbot interface
+streamlit run app/chatbot/chatbot.py
+
+# 5. (Optional) Test specific product
+python -m app.crawler.test_fetch_silkkurta_blue
+
+====================================================
+
 python -m app.upsert.setup_schema
 python -m app.crawler.crawler_mp
 python -m app.upsert.upsert
@@ -6,3 +23,4 @@ python -m app.upsert.upsert
 docker-compose down -v  # Full clean wipe
 docker-compose up -d    # Restart Weaviate
 python -m app.upsert.setup_schema  # Recreate schema cleanly
+

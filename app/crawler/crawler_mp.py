@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# Crawler script using Selenium to scrape a website, extract text, and chunk it for further processing.
+# This script is designed to be run as a standalone module and can be configured via environment variables.
+
 import os
 import sys
 import time
-import json
 import asyncio
 from tqdm import tqdm
 from selenium import webdriver
@@ -19,7 +23,7 @@ from app.utils.hash_utils import compute_hash
 START_URL = os.getenv("CRAWLER_START_URL", "https://preprod-arunodayakurtis.zupain.com")
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", 1000))
 WAIT_SECONDS = float(os.getenv("CRAWLER_WAIT_SECONDS", 2))
-CONCURRENCY = int(os.getenv("CRAWLER_CONCURRENCY", 8))  # Reduced concurrency for stability
+CONCURRENCY = int(os.getenv("CRAWLER_CONCURRENCY", 8))
 
 def get_driver():
     options = webdriver.ChromeOptions()
@@ -41,7 +45,6 @@ def scrape_url_with_selenium(url, chunk_size=CHUNK_SIZE):
         driver.get(url)
 
         try:
-            # Wait for price symbol or Add to Cart (JS-loaded content)
             WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((
                     By.XPATH,
@@ -74,7 +77,6 @@ def scrape_url_with_selenium(url, chunk_size=CHUNK_SIZE):
         except Exception as e:
             print(f"[SNAPSHOT ERROR] Could not log failed page HTML for {url}: {e}")
 
-    # Chunk the page content
     for i in range(0, len(body_text), chunk_size):
         chunk = body_text[i:i + chunk_size]
         if chunk.strip():
@@ -92,17 +94,9 @@ def scrape_url_with_selenium(url, chunk_size=CHUNK_SIZE):
 async def get_crawlable_urls(site_url):
     all_urls = await extract_sitemap_links(site_url)
     print(f"[SITEMAP] Total URLs collected: {len(all_urls)}")
-    os.makedirs("data", exist_ok=True)
-
-    with open("data/all_urls.json", "w") as f:
-        json.dump(sorted(list(all_urls)), f, indent=2)
-
+    # You can skip writing URLs to disk if not needed
     crawlable = [u for u in all_urls if is_allowed(u)]
     print(f"Total crawlable URLs (after robots.txt): {len(crawlable)}")
-
-    with open("data/crawlable_urls.json", "w") as f:
-        json.dump(sorted(list(crawlable)), f, indent=2)
-
     return crawlable
 
 async def crawl_all_sitemap_urls(site_url, chunk_size=CHUNK_SIZE, concurrency=CONCURRENCY):
@@ -140,26 +134,20 @@ async def crawl_all_sitemap_urls(site_url, chunk_size=CHUNK_SIZE, concurrency=CO
     await asyncio.gather(*tasks)
 
     pbar.close()
-
-    with open("data/visited_urls.json", "w") as f:
-        json.dump(sorted(list(visited)), f, indent=2)
-
+    # Optionally skip saving visited URLs to disk here
     return all_chunks
 
 def main():
-    os.makedirs("data", exist_ok=True)
     try:
         all_chunks = asyncio.run(crawl_all_sitemap_urls(START_URL))
-        with open("data/site_chunks.json", "w", encoding="utf-8") as f:
-            json.dump(all_chunks, f, indent=2)
-
-        print(f"\n[CRAWLER] Saved {len(all_chunks)} chunks to data/site_chunks.json")
+        print(f"\n[CRAWLER] Crawled and generated {len(all_chunks)} chunks.")
+        return all_chunks  # Return chunks directly instead of saving JSON
     except KeyboardInterrupt:
         print("\n[CRAWLER] Interrupted manually. Exiting.")
+        return []
     except Exception as e:
         print(f"[CRAWLER ERROR] {e}")
+        return []
 
 if __name__ == "__main__":
     main()
-
-# # # grep -A 10 "SILKKURTA(BLUE-)" data/site_chunks.json

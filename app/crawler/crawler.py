@@ -1,3 +1,4 @@
+# this is a "test crawler" with beautifulsoup and playwright to crawl a site and extract text and links
 import os
 import sys
 import time

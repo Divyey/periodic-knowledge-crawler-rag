@@ -34,3 +34,4 @@ streamlit>=1.10.0
 
 # BONUS: Upgrade Automatically with Migration Tool---
 # >> openai migrate
+selenium
