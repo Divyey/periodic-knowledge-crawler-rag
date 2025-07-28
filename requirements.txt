@@ -35,3 +35,12 @@ streamlit>=1.10.0
 # BONUS: Upgrade Automatically with Migration Tool---
 # >> openai migrate
 selenium
+
+# pip install openai-whisper sounddevice scipy
+# pip install pyttsx3
+
+pip install streamlit openai weaviate-client python-dotenv whisper sounddevice scipy pyttsx3
+brew install portaudio ffmpeg
+
+pip install streamlit openai weaviate-client python-dotenv whisper sounddevice scipy pyttsx3
+brew install portaudio ffmpeg  # macOS audio deps
