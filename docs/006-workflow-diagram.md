@@ -35,47 +35,47 @@ This section explains the detailed workflow of the Periodic Crawler RAG System u
 ---
 
 ## Textual Flowchart Representation
-
+```
 ┌─────────────────────────┐
-│ Scheduler Trigger │
-└──────────┬──────────────┘
-│
-▼
+│ Scheduler Trigger       │
+└───────────┬─────────────┘
+            │
+            ▼
 ┌─────────────────────────┐
-│ Fetch & Parse Sitemaps │
-│ + Check robots.txt │
+│ Fetch & Parse Sitemaps  │
+│ + Check robots.txt      │
 └──────────┬──────────────┘
-│
-▼
+           │
+           ▼
 ┌─────────────────────────┐
-│ Concurrent Page Crawl │
+│ Concurrent Page Crawl   │
 └──────────┬──────────────┘
-│
-▼
+           │
+           ▼
 ┌─────────────────────────┐
 │ Extract & Chunk Content │
 └──────────┬──────────────┘
-│
-▼
+           │
+           ▼
 ┌─────────────────────────┐
-│ Compute Chunk Hashes │
+│ Compute Chunk Hashes    │
 └──────────┬──────────────┘
-│
-▼
+           │
+           ▼
 ┌─────────────────────────┐
-│ Upsert to Weaviate │
+│ Upsert to Weaviate      │
 └──────────┬──────────────┘
-│
-▼
+           │
+           ▼
 ┌─────────────────────────┐
-│ Chatbot Query Loop │
+│ Chatbot Query Loop      │
 └──────────┬──────────────┘
-│
-▼
+           │
+           ▼
 ┌─────────────────────────┐
-│ Generate & Deliver │
-│ Answers (TTS) │
+│ Generate & Deliver      │
+│ Answers (TTS)           │
 └─────────────────────────┘
-
+```
 *This workflow diagram depicts the continuous operations bridging crawling, indexing, and conversational AI for end users.*
  
