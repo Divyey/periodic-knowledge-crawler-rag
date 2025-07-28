@@ -109,5 +109,3 @@ _* (Actual numbers depend on tested site and parameters, please refer to corresp
 *All sample scripts and test outputs referenced are available in the `app/test/` directory for reproduction and further analysis.*
 
 ---
-
-If you would like, I can help you turn raw JSON outputs or logs from individual crawlers into formatted tables or graphs for the document as well—just share those files or snippets!
