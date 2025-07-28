@@ -62,9 +62,9 @@ This architecture enables scalable, maintainable, and extensible operation, faci
 
 ## Data & Control Flow Diagram (Textual)
 
-```
+
 ![alt text](image.png)
-```
+
 
 ---
 
@@ -77,6 +77,6 @@ The modular code structure (detailed in your repo tree) ensures ease of maintena
 
 *This file corresponds with the directory structure and files as shown below for reference:*
 
-```
+
 ![alt text](image-1.png)
-```
+
