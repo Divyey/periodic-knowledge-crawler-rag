@@ -1,4 +1,4 @@
-# Periodic Crawler RAG System
+# Periodic Crawler+Scrapping RAG System
 
 ![](https://img.shields.io/badge/status-proof--of--concept-blue) ![](https://img.shields.io/badge/language-Python3.11-green) ![](https://img.shields.io/badge/VectorDB-Weaviate-orange)
 
